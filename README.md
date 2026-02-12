@@ -69,7 +69,10 @@ start explorer.exe
 ```powershell
 Get-Item "HKCU:\Software\Classes\Directory\Background\shell\SpecialPasteFromClipboard"
 Get-Item "HKCU:\Software\Classes\*\shell\SpecialCopyBase64"
+Get-Item "HKCU:\Software\Classes\lnkfile\shell\SpecialCopyBase64"
 ```
+
+- Shortcuts (`.lnk` / `.url`) are also registered explicitly so **Special Copy** works reliably when right-clicking desktop shortcuts.
 
 ## Usage
 

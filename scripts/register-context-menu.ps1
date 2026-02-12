@@ -36,6 +36,11 @@ Set-Verb -KeyPath 'HKCU:\Software\Classes\*\shell\SpecialCopyBase64' -MenuText '
 Set-Verb -KeyPath 'HKCU:\Software\Classes\AllFilesystemObjects\shell\SpecialCopyBase64' -MenuText 'Special Copy (Base64 Package)' -Command "`"$exe`" special-copy `"%1`""
 Set-Verb -KeyPath 'HKCU:\Software\Classes\Directory\shell\SpecialCopyBase64' -MenuText 'Special Copy (Base64 Package)' -Command "`"$exe`" special-copy `"%1`""
 
+
+# Explicit shortcut classes (some Windows configurations do not honor * for .lnk/.url)
+Set-Verb -KeyPath 'HKCU:\Software\Classes\lnkfile\shell\SpecialCopyBase64' -MenuText 'Special Copy (Base64 Package)' -Command "`"$exe`" special-copy `"%1`""
+Set-Verb -KeyPath 'HKCU:\Software\Classes\InternetShortcut\shell\SpecialCopyBase64' -MenuText 'Special Copy (Base64 Package)' -Command "`"$exe`" special-copy `"%1`""
+
 # Folder background + desktop verbs
 Set-Verb -KeyPath 'HKCU:\Software\Classes\Directory\Background\shell\SpecialPasteFromClipboard' -MenuText 'Special Paste (from Clipboard)' -Command "`"$exe`" special-paste `"%V`""
 Set-Verb -KeyPath 'HKCU:\Software\Classes\DesktopBackground\Shell\SpecialPasteFromClipboard' -MenuText 'Special Paste (from Clipboard)' -Command "`"$exe`" special-paste `"%V`""

@@ -5,6 +5,8 @@ $keys = @(
   'HKCU:\Software\Classes\*\shell\SpecialCopyBase64',
   'HKCU:\Software\Classes\AllFilesystemObjects\shell\SpecialCopyBase64',
   'HKCU:\Software\Classes\Directory\shell\SpecialCopyBase64',
+  'HKCU:\Software\Classes\lnkfile\shell\SpecialCopyBase64',
+  'HKCU:\Software\Classes\InternetShortcut\shell\SpecialCopyBase64',
   'HKCU:\Software\Classes\Directory\Background\shell\SpecialPasteFromClipboard',
   'HKCU:\Software\Classes\DesktopBackground\Shell\SpecialPasteFromClipboard',
   'HKCU:\Software\Classes\Directory\Background\shell\SpecialPasteAssemble',

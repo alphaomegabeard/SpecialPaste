@@ -18,8 +18,11 @@ dotnet publish $project `
   -c $Configuration `
   -r $Runtime `
   --self-contained true `
+  /p:SelfContained=true `
+  /p:UseAppHost=true `
   /p:PublishSingleFile=true `
   /p:IncludeNativeLibrariesForSelfExtract=true `
+  /p:EnableCompressionInSingleFile=true `
   /p:DebugType=None `
   /p:DebugSymbols=false `
   -o $outDir

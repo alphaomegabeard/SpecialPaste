@@ -29,6 +29,13 @@ if (-not (Test-Path -LiteralPath $ExePath)) {
 }
 
 $exe = (Resolve-Path -LiteralPath $ExePath).Path
+
+$exeName = [System.IO.Path]::GetFileNameWithoutExtension($ExePath)
+$runtimeConfig = Join-Path ([System.IO.Path]::GetDirectoryName($ExePath)) ($exeName + '.runtimeconfig.json')
+if (Test-Path -LiteralPath $runtimeConfig) {
+  throw "The selected EXE appears framework-dependent ($runtimeConfig exists). Publish self-contained first: .\scripts\publish-self-contained.ps1, then register dist\win-x64\SpecialPaste.exe"
+}
+
 Write-Host "Using EXE: $exe"
 
 # File/folder item verbs

@@ -43,6 +43,8 @@ Output executable (default):
 
 `dist\win-x64\SpecialPaste.exe`
 
+> Important: do **not** register/use `src\SpecialPaste.App\bin\Release\...\SpecialPaste.exe` on runtime-clean target machines; that build is framework-dependent and can show ".NET runtime not installed".
+
 ### Developer build (requires .NET SDK + runtime on machine)
 
 ```powershell
@@ -51,6 +53,14 @@ dotnet build -c Release
 ```
 
 ## Context menu setup (no admin, per-user)
+
+### Recommended one-command install (publish + register)
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\install-context-menu.ps1
+```
+
+### Manual register (after publish)
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\scripts\register-context-menu.ps1 -ExePath .\dist\win-x64\SpecialPaste.exe
@@ -141,7 +151,7 @@ b64=
 ## Troubleshooting
 
 - **Clipboard does not contain Unicode text**: Copy full package text again.
-- **".NET runtime not installed" when launching app**: use the self-contained publish flow (`scripts/publish-self-contained.ps1`) and register `dist\win-x64\SpecialPaste.exe`.
+- **".NET runtime not installed" when launching app**: run `scripts/install-context-menu.ps1` (or `scripts/publish-self-contained.ps1`), then register/use `dist\win-x64\SpecialPaste.exe` only.
 - **Invalid package markers**: Ensure header/footer were not altered.
 - **Hash mismatch**: Package tampered/corrupted in transit. Re-copy source package.
 - **Size mismatch**: Incomplete payload or wrong chunk assembly.

@@ -45,6 +45,25 @@ Output executable (default):
 
 > Important: do **not** register/use `src\SpecialPaste.App\bin\Release\...\SpecialPaste.exe` on runtime-clean target machines; that build is framework-dependent and can show ".NET runtime not installed".
 
+### Installer EXE (recommended user workflow)
+
+Build an installer EXE (self-contained):
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\publish-installer.ps1
+```
+
+Then run:
+
+`dist\installer\win-x64\SpecialPasteInstaller.exe`
+
+The installer will:
+- detect `dist\win-x64\SpecialPaste.exe` (or accept an explicit path argument),
+- register context menu entries,
+- create shortcuts:
+  - Desktop: `Special Paste.lnk`
+  - Start Menu Programs: `Special Paste.lnk`
+
 ### Developer build (requires .NET SDK + runtime on machine)
 
 ```powershell
@@ -55,6 +74,8 @@ dotnet build -c Release
 ## Context menu setup (no admin, per-user)
 
 ### Recommended one-command install (publish + register)
+
+> Alternative: use `SpecialPasteInstaller.exe` (see **Installer EXE** above).
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\scripts\install-context-menu.ps1
@@ -110,6 +131,7 @@ SpecialPaste.exe special-copy "C:\path\to\file-or-folder"
 SpecialPaste.exe special-paste "C:\destination\folder"
 SpecialPaste.exe show-assembly
 SpecialPaste.exe special-assemble "<package-guid>" "C:\destination\folder"
+SpecialPasteInstaller.exe "C:\path\to\SpecialPaste.exe"
 ```
 
 ### C) Tray app

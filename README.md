@@ -29,21 +29,31 @@ Special Paste is a Windows desktop utility for moving files through text-only ch
 ✅ Multi-file/folder support (manifest + payload stream).  
 ✅ Chunk splitting + assembly cache/status UI.
 
-## Build
+## Build / Publish
+
+### Recommended (no .NET runtime required on target machine)
+
+Publish a **self-contained** single-file EXE:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\publish-self-contained.ps1
+```
+
+Output executable (default):
+
+`dist\win-x64\SpecialPaste.exe`
+
+### Developer build (requires .NET SDK + runtime on machine)
 
 ```powershell
 cd src/SpecialPaste.App
 dotnet build -c Release
 ```
 
-Output executable (expected):
-
-`src\SpecialPaste.App\bin\Release\net8.0-windows\SpecialPaste.exe`
-
 ## Context menu setup (no admin, per-user)
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File .\scripts\register-context-menu.ps1 -ExePath .\src\SpecialPaste.App\bin\Release\net8.0-windows\SpecialPaste.exe
+powershell -ExecutionPolicy Bypass -File .\scripts\register-context-menu.ps1 -ExePath .\dist\win-x64\SpecialPaste.exe
 ```
 
 ### Uninstall context menu
@@ -94,7 +104,7 @@ SpecialPaste.exe special-assemble "<package-guid>" "C:\destination\folder"
 
 ### C) Tray app
 
-Launch `SpecialPaste.exe` with no arguments.
+Launch `SpecialPaste.exe` with no arguments (recommended from `dist\win-x64\SpecialPaste.exe`).
 
 ## Package format
 
@@ -131,6 +141,7 @@ b64=
 ## Troubleshooting
 
 - **Clipboard does not contain Unicode text**: Copy full package text again.
+- **".NET runtime not installed" when launching app**: use the self-contained publish flow (`scripts/publish-self-contained.ps1`) and register `dist\win-x64\SpecialPaste.exe`.
 - **Invalid package markers**: Ensure header/footer were not altered.
 - **Hash mismatch**: Package tampered/corrupted in transit. Re-copy source package.
 - **Size mismatch**: Incomplete payload or wrong chunk assembly.

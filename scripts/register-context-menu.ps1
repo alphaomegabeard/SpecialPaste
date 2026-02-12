@@ -1,6 +1,6 @@
 [CmdletBinding()]
 param(
-  [string]$ExePath = "$PSScriptRoot\..\src\SpecialPaste.App\bin\Release\net8.0-windows\SpecialPaste.exe"
+  [string]$ExePath = "$PSScriptRoot\..\dist\win-x64\SpecialPaste.exe"
 )
 
 $ErrorActionPreference = 'Stop'
@@ -25,7 +25,7 @@ function Set-Verb {
 }
 
 if (-not (Test-Path -LiteralPath $ExePath)) {
-  throw "SpecialPaste executable not found: $ExePath"
+  throw "SpecialPaste executable not found: $ExePath. Build/publish first (recommended: .\scripts\publish-self-contained.ps1)."
 }
 
 $exe = (Resolve-Path -LiteralPath $ExePath).Path

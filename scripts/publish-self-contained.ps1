@@ -6,6 +6,10 @@ param(
 
 $ErrorActionPreference = 'Stop'
 
+if (-not (Get-Command dotnet -ErrorAction SilentlyContinue)) {
+  throw "dotnet SDK is not installed on this machine. Use prebuilt self-contained EXEs (see README: 'If target machine has no dotnet command')."
+}
+
 $repoRoot = Split-Path -Parent $PSScriptRoot
 $project = Join-Path $repoRoot 'src\SpecialPaste.App\SpecialPaste.App.csproj'
 $outDir = Join-Path $repoRoot "dist\$Runtime"

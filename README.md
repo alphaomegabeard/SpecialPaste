@@ -45,6 +45,18 @@ Output executable (default):
 
 > Important: do **not** register/use `src\SpecialPaste.App\bin\Release\...\SpecialPaste.exe` on runtime-clean target machines; that build is framework-dependent and can show ".NET runtime not installed".
 
+### If target machine has no `dotnet` command
+
+You do **not** need `dotnet` on the target machine if you use self-contained binaries.
+
+Options:
+1. Build/publish on any machine that has .NET SDK, then copy these EXEs to the target machine:
+   - `dist\win-x64\SpecialPaste.exe`
+   - `dist\installer\win-x64\SpecialPasteInstaller.exe`
+2. Or use GitHub Actions artifacts from `.github/workflows/windows-self-contained.yml`:
+   - download `SpecialPaste-win-x64` and `SpecialPasteInstaller-win-x64`
+   - run `SpecialPasteInstaller.exe` on the target machine.
+
 ### Installer EXE (recommended user workflow)
 
 Build an installer EXE (self-contained):
@@ -174,6 +186,7 @@ b64=
 
 - **Clipboard does not contain Unicode text**: Copy full package text again.
 - **".NET runtime not installed" when launching app**: run `scripts/install-context-menu.ps1` (or `scripts/publish-self-contained.ps1`), then register/use `dist\win-x64\SpecialPaste.exe` only.
+- **`dotnet` is not recognized**: this means SDK is not installed on that machine; use prebuilt self-contained EXEs and run `SpecialPasteInstaller.exe` instead of building there.
 - **Invalid package markers**: Ensure header/footer were not altered.
 - **Hash mismatch**: Package tampered/corrupted in transit. Re-copy source package.
 - **Size mismatch**: Incomplete payload or wrong chunk assembly.

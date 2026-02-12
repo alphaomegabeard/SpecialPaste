@@ -55,6 +55,8 @@ powershell -ExecutionPolicy Bypass -File .\scripts\unregister-context-menu.ps1
 ### Windows 11 behavior note
 
 - These are **classic shell verbs**. On Windows 11 they usually appear under **Show more options** (Shift+Right-click).
+- The menu entries use a built-in Windows icon (`imageres.dll,-5302`) to avoid shipping binary icon assets in this repository.
+- Showing these entries in the **top-level Win11 menu** is generally not possible with classic registry verbs alone; that requires a modern `IExplorerCommand`/shell extension implementation.
 - If verbs do not appear immediately after registration, restart Explorer:
 
 ```powershell

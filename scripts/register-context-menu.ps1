@@ -14,7 +14,7 @@ function Set-Verb {
 
   New-Item -Path $KeyPath -Force | Out-Null
   Set-ItemProperty -Path $KeyPath -Name 'MUIVerb' -Value $MenuText
-  Set-ItemProperty -Path $KeyPath -Name 'Icon' -Value $script:exe
+  Set-ItemProperty -Path $KeyPath -Name 'Icon' -Value 'imageres.dll,-5302'
 
   $cmdKey = "$KeyPath\command"
   New-Item -Path $cmdKey -Force | Out-Null

@@ -1,0 +1,41 @@
+name: Build Windows self-contained binaries
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ "main", "work" ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET 8 SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Publish SpecialPaste (self-contained)
+        shell: pwsh
+        run: |
+          dotnet publish .\src\SpecialPaste.App\SpecialPaste.App.csproj -c Release -r win-x64 --self-contained true /p:SelfContained=true /p:UseAppHost=true /p:PublishSingleFile=true /p:IncludeNativeLibrariesForSelfExtract=true /p:EnableCompressionInSingleFile=true /p:DebugType=None /p:DebugSymbols=false -o .\dist\win-x64
+
+      - name: Publish SpecialPasteInstaller (self-contained)
+        shell: pwsh
+        run: |
+          dotnet publish .\src\SpecialPaste.Installer\SpecialPaste.Installer.csproj -c Release -r win-x64 --self-contained true /p:SelfContained=true /p:UseAppHost=true /p:PublishSingleFile=true /p:EnableCompressionInSingleFile=true /p:DebugType=None /p:DebugSymbols=false -o .\dist\installer\win-x64
+
+      - name: Upload app artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: SpecialPaste-win-x64
+          path: dist/win-x64/SpecialPaste.exe
+
+      - name: Upload installer artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: SpecialPasteInstaller-win-x64
+          path: dist/installer/win-x64/SpecialPasteInstaller.exe

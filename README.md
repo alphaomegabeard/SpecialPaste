@@ -52,6 +52,23 @@ powershell -ExecutionPolicy Bypass -File .\scripts\register-context-menu.ps1 -Ex
 powershell -ExecutionPolicy Bypass -File .\scripts\unregister-context-menu.ps1
 ```
 
+### Windows 11 behavior note
+
+- These are **classic shell verbs**. On Windows 11 they usually appear under **Show more options** (Shift+Right-click).
+- If verbs do not appear immediately after registration, restart Explorer:
+
+```powershell
+taskkill /f /im explorer.exe
+start explorer.exe
+```
+
+- You can verify registration with:
+
+```powershell
+Get-Item "HKCU:\Software\Classes\Directory\Background\shell\SpecialPasteFromClipboard"
+Get-Item "HKCU:\Software\Classes\*\shell\SpecialCopyBase64"
+```
+
 ## Usage
 
 ### A) Explorer context menu
